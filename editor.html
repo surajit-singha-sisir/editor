@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WYSIWYG Editor</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/surajit-singha-sisir/mastorsCDN@v1.1.01/mastors.css" />
+    <script type="module" src="https://cdn.jsdelivr.net/gh/surajit-singha-sisir/mastorsCDN@v1.1.01/mastors.js"></script>
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/surajit-singha-sisir/mastorsCDN@v1.1/mastorsIcons/mastorsIcons.css" />
+    <link rel="stylesheet" href="css/visual-weaver.css">
+</head>
+
+<body>
+    <!-- VISUAL WEAVER EDITOR -->
+    <textarea name="mastors-editor" class="hide" id="mastors-editor"></textarea>
+
+    <aside class="visual-weaver">
+        <!-- TOOLS -->
+        <div class="editor-head" target-mode="default" target-theme="default">
+            <!-- target-mode="airmode" target-theme="secondary" -->
+
+            <!-- TEXT FACES -->
+            <div class="text-face toolbar">
+                <!-- BOLD -->
+                <button type="button" class="btn btn-silver bold" id="bold" tabindex="-1" aria-label="Bold (CTRL+B)"
+                    data-original-title="Bold (CTRL+B)"><i class="m-bold"></i></button>
+                <!-- ITALIC -->
+                <button type="button" class="btn btn-silver italic" id="italic" tabindex="-1"
+                    aria-label="Italic (CTRL+I)" data-original-title="Italic (CTRL+I)"><i class="m-italic"></i></button>
+                <!-- UNDERLINE -->
+                <button type="button" class="btn btn-silver underline" id="underline" tabindex="-1"
+                    aria-label="Underline (CTRL+U)" data-original-title="Underline (CTRL+U)"><i
+                        class="m-underline"></i></button>
+                <!-- UNDERLINE -->
+                <button type="button" class="btn btn-silver underline" id="underline" tabindex="-1"
+                    aria-label="Underline (CTRL+U)" data-original-title="Underline (CTRL+U)"><i
+                        class="m-underline"></i></button>
+                <!-- ERASE STYLES -->
+                <button type="button" class="btn btn-silver erase-style" id="erase-style" tabindex="-1"
+                    aria-label="Erase Styles (CTRL+/)" data-original-title="Erase Styles (CTRL+/)"><i
+                        class="m-underline"></i></button>
+            </div>
+            <!-- FONTS -->
+            <div class="font-family toolbar">
+                <!-- BOLD -->
+                <button type="button" class="btn btn-silver bold" id="bold" tabindex="-1" aria-label="Bold (CTRL+B)"
+                    data-original-title="Bold (CTRL+B)"><i class="m-bold"></i></button>
+                <!-- ITALIC -->
+                <button type="button" class="btn btn-silver italic" id="italic" tabindex="-1"
+                    aria-label="Italic (CTRL+I)" data-original-title="Italic (CTRL+I)"><i class="m-italic"></i></button>
+                <!-- UNDERLINE -->
+                <button type="button" class="btn btn-silver underline" id="underline" tabindex="-1"
+                    aria-label="Underline (CTRL+U)" data-original-title="Underline (CTRL+U)"><i
+                        class="m-underline"></i></button>
+                <!-- UNDERLINE -->
+                <button type="button" class="btn btn-silver underline" id="underline" tabindex="-1"
+                    aria-label="Underline (CTRL+U)" data-original-title="Underline (CTRL+U)"><i
+                        class="m-underline"></i></button>
+                <!-- ERASE STYLES -->
+                <button type="button" class="btn btn-silver erase-style" id="erase-style" tabindex="-1"
+                    aria-label="Erase Styles (CTRL+/)" data-original-title="Erase Styles (CTRL+/)"><i
+                        class="m-underline"></i></button>
+            </div>
+        </div>
+        <div class="text-editor">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae, cumque omnis eaque deserunt eveniet
+            corporis dolorem exercitationem voluptas illum. Amet veritatis perferendis quaerat necessitatibus doloribus
+            aspernatur, accusamus itaque tenetur rerum!
+        </div>
+    </aside>
+
+
+</body>
+
+</html>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const editor = document.getElementById("mastors-editor");
+
+        toolbar: [
+            // [groupName, [list of button]]
+            ["style", ["bold", "italic", "underline", "clear"]],
+            ["font", ["strikethrough", "superscript", "subscript"]],
+            ["fontsize", ["fontsize"]],
+            ["color", ["color"]],
+            ["para", ["ul", "ol", "paragraph"]],
+            ["height", ["height"]],
+        ];
+    });
+</script>

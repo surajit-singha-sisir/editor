@@ -1,0 +1,23 @@
+{
+  "name": "editor",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/kehem/editor#readme",
+  "bugs": {
+    "url": "https://github.com/kehem/editor/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kehem/editor.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+ "scripts": {
+  "sass": "sass --watch css/visual-weaver.scss:css/visual-weaver.css"
+},
+  "dependencies": {
+    "sass": "^1.84.0"
+  }
+}
