@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Content Editable Div with Image Drag and Drop & Resizing</title>
+    <style>
+        #editableDiv {
+            width: 80%;
+            min-height: 200px;
+            border: 2px solid #ccc;
+            padding: 10px;
+            margin: 20px auto;
+            overflow: auto;
+        }
+
+        .resizable {
+            display: inline-block;
+            border: 2px solid #007bff;
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="editableDiv" contenteditable="true">
+        <p>Drag and drop an image here.</p>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+
+    <script>
+        const editableDiv = document.getElementById('editableDiv');
+
+        editableDiv.addEventListener('dragover', (e) => {
+            e.preventDefault(); // Allow drop
+        });
+
+        editableDiv.addEventListener('drop', (e) => {
+            e.preventDefault();
+
+            const files = e.dataTransfer.files;
+
+            if (files.length > 0) {
+                const file = files[0];
+                const reader = new FileReader();
+
+                reader.onload = function(event) {
+                    const img = document.createElement('img');
+                    img.src = event.target.result;
+                    img.style.maxWidth = '100%';
+                    img.style.height = 'auto';
+                    img.classList.add('resizable');
+
+                    // Append image to div
+                    editableDiv.appendChild(img);
+                    makeResizable(img);
+                };
+
+                reader.readAsDataURL(file);
+            }
+        });
+
+        function makeResizable(img) {
+            // Apply jQuery UI resizable and allow resizing from all corners
+            $(img).resizable({
+                aspectRatio: true, // Optional: Set to true if you want to maintain aspect ratio
+                handles: 'n, e, s, w, ne, se, sw, nw' // All corners and edges are resizable
+            });
+        }
+    </script>
+
+</body>
+</html>
