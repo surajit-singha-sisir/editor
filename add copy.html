@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern WYSIWYG Editor</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Lato:wght@400;700&family=Kalpurush&family=SolaimanLipi&family=K2D&family=Arial&display=swap" rel="stylesheet">
+    <style>
+        /* Your existing CSS styles */
+    </style>
+</head>
+<body>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const editor = document.getElementById('editor');
+            if (editor) {
+            const toolbarHTML = `
+                <div class="toolbar">
+                <button onclick="execCommand('bold')" title="Bold">
+                    <i class="fas fa-bold icon"></i>
+                </button>
+                <button onclick="execCommand('italic')" title="Italic">
+                    <i class="fas fa-italic icon"></i>
+                </button>
+                <button onclick="execCommand('underline')" title="Underline">
+                    <i class="fas fa-underline icon"></i>
+                </button>
+                <button onclick="execCommand('justifyLeft')" title="Align Left">
+                    <i class="fas fa-align-left icon"></i>
+                </button>
+                <button onclick="execCommand('justifyCenter')" title="Align Center">
+                    <i class="fas fa-align-center icon"></i>
+                </button>
+                <button onclick="execCommand('justifyRight')" title="Align Right">
+                    <i class="fas fa-align-right icon"></i>
+                </button>
+                <button onclick="execCommand('justifyFull')" title="Justify">
+                    <i class="fas fa-align-justify icon"></i>
+                </button>
+                <button onclick="toggleFontSizeMenu()" title="Font Size">
+                    <i class="fas fa-text-height icon"></i>
+                </button>
+                <div class="font-size-dropdown" id="fontSizeMenu">
+                    <a href="javascript:void(0);" onclick="changeFontSize(10)">10px</a>
+                    <a href="javascript:void(0);" onclick="changeFontSize(14)">14px</a>
+                    <a href="javascript:void(0);" onclick="changeFontSize(18)">18px</a>
+                    <a href="javascript:void(0);" onclick="changeFontSize(22)">22px</a>
+                    <a href="javascript:void(0);" onclick="changeFontSize(26)">26px</a>
+                    <a href="javascript:void(0);" onclick="changeFontSize(30)">30px</a>
+                </div>
+                <select id="fontFamily" onchange="changeFontFamily(event)" title="Font Family">
+                    <option value="Roboto" selected>Roboto</option>
+                    <option value="Lato">Lato</option>
+                    <option value="Kalpurush">Kalpurush</option>
+                    <option value="SolaimanLipi">SolaimanLipi</option>
+                    <option value="K2D">K2D</option>
+                    <option value="Arial">Arial</option>
+                </select>
+                <button onclick="toggleColorPicker('text')" title="Font Color">
+                    <i class="fas fa-font icon"></i>
+                </button>
+                <div class="color-picker" id="textColorPicker">
+                    <input type="color" onchange="changeTextColor(event)" />
+                </div>
+                <button onclick="toggleColorPicker('background')" title="Background Color">
+                    <i class="fas fa-palette icon"></i>
+                </button>
+                <div class="color-picker" id="bgColorPicker">
+                    <input type="color" onchange="changeBackgroundColor(event)" />
+                </div>
+                <button onclick="toggleTableInputs()" title="Table">
+                    <i class="fas fa-table icon"></i>
+                </button>
+                <div class="table-inputs" id="tableInputs" style="display: none;">
+                    <input type="number" id="rows" placeholder="Rows" min="1" />
+                    <input type="number" id="cols" placeholder="Cols" min="1" />
+                    <button onclick="createTable()">Create Table</button>
+                </div>
+                </div>
+            `;
+            editor.insertAdjacentHTML('beforebegin', toolbarHTML);
+
+            function execCommand(command) {
+                document.execCommand(command, false, null);
+            }
+
+            function changeFontSize(size) {
+                document.execCommand('fontSize', false, size);
+            }
+
+            function changeFontFamily(event) {
+                const fontFamily = event.target.value;
+                document.execCommand('fontName', false, fontFamily);
+            }
+
+            function toggleFontSizeMenu() {
+                const menu = document.getElementById('fontSizeMenu');
+                menu.classList.toggle('show');
+            }
+
+            function hideFontSizeMenu() {
+                const menu = document.getElementById('fontSizeMenu');
+                menu.classList.remove('show');
+            }
+
+            function toggleColorPicker(type) {
+                if (type === 'text') {
+                document.getElementById('textColorPicker').style.display = 'block';
+                document.getElementById('bgColorPicker').style.display = 'none';
+                } else {
+                document.getElementById('bgColorPicker').style.display = 'block';
+                document.getElementById('textColorPicker').style.display = 'none';
+                }
+            }
+
+            function changeTextColor(event) {
+                const color = event.target.value;
+                document.execCommand('foreColor', false, color);
+            }
+
+            function changeBackgroundColor(event) {
+                const color = event.target.value;
+                document.execCommand('backColor', false, color);
+            }
+
+            function toggleTableInputs() {
+                const inputs = document.getElementById('tableInputs');
+                inputs.style.display = inputs.style.display === 'none' ? 'flex' : 'none';
+            }
+
+            function createTable() {
+                const rows = document.getElementById('rows').value;
+                const cols = document.getElementById('cols').value;
+                if (rows && cols) {
+                const table = document.createElement('table');
+                for (let i = 0; i < rows; i++) {
+                    const tr = table.insertRow();
+                    for (let j = 0; j < cols; j++) {
+                    const td = tr.insertCell();
+                    td.innerHTML = `Row ${i + 1}, Col ${j + 1}`;
+                    }
+                }
+                editor.appendChild(table);
+                }
+                toggleTableInputs();
+            }
+
+            // Attach event listeners to toolbar buttons
+            document.querySelectorAll('.toolbar button').forEach(button => {
+                button.addEventListener('click', function() {
+                const command = this.getAttribute('onclick').match(/execCommand\('(\w+)'\)/)[1];
+                execCommand(command);
+                });
+            });
+
+            document.getElementById('fontFamily').addEventListener('change', changeFontFamily);
+            document.getElementById('textColorPicker').querySelector('input').addEventListener('change', changeTextColor);
+            document.getElementById('bgColorPicker').querySelector('input').addEventListener('change', changeBackgroundColor);
+            document.getElementById('tableInputs').querySelector('button').addEventListener('click', createTable);
+            }
+        });
+    </script>
+</body>
+</html>

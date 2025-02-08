@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern WYSIWYG Editor</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Lato:wght@400;700&family=Kalpurush&family=SolaimanLipi&family=K2D&family=Arial&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f9;
+            padding: 20px;
+        }
+
+        .toolbar {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            position: relative;
+        }
+
+        .editor {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 15px;
+            min-height: 250px;
+            border: 1px solid #ddd;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+            font-size: 16px;
+            line-height: 1.5;
+            transition: border-color 0.3s ease;
+        }
+
+        .editor:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+        button {
+            padding: 8px 12px;
+            cursor: pointer;
+            background-color: #f0f0f0;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #e0e0e0;
+            transform: scale(1.05);
+        }
+
+        button.active {
+            background-color: #d1d1d1;
+        }
+
+        select, .font-size-dropdown {
+            padding: 8px 12px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            transition: background-color 0.3s ease;
+            width: 120px;
+        }
+
+        select:hover, .font-size-dropdown:hover {
+            background-color: #f0f0f0;
+        }
+
+        .icon {
+            font-size: 18px;
+            color: #555;
+        }
+
+        .toolbar button span {
+            margin-right: 5px;
+        }
+
+        .toolbar button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .font-size-dropdown {
+            display: none;
+            position: absolute;
+            top: 35px;
+            left: 0;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border: 1px solid #ddd;
+            padding: 8px 0;
+            width: 120px;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .font-size-dropdown a {
+            display: block;
+            padding: 8px 15px;
+            font-size: 16px;
+            color: #333;
+            text-decoration: none;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .font-size-dropdown a:hover {
+            background-color: #f0f0f0;
+            color: #007bff;
+        }
+
+        .font-size-dropdown.show {
+            display: block;
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .table-inputs {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-left: 10px;
+        }
+
+        .table-inputs input {
+            padding: 5px;
+            font-size: 16px;
+            width: 50px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .table-inputs button {
+            padding: 5px 10px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .table-inputs button:hover {
+            background-color: #0056b3;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+
+        .color-picker {
+            display: none;
+            position: absolute;
+            top: 45px;
+            left: 0;
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        .color-picker input {
+            width: 100px;
+            border: none;
+            padding: 5px;
+        }
+
+        /* Custom link input style (Removed) */
+    </style>
+</head>
+<body>
+    <div class="toolbar">
+        <button onclick="execCommand('bold')" title="Bold">
+            <i class="fas fa-bold icon"></i>
+        </button>
+        <button onclick="execCommand('italic')" title="Italic">
+            <i class="fas fa-italic icon"></i>
+        </button>
+        <button onclick="execCommand('underline')" title="Underline">
+            <i class="fas fa-underline icon"></i>
+        </button>
+        <button onclick="execCommand('justifyLeft')" title="Align Left">
+            <i class="fas fa-align-left icon"></i>
+        </button>
+        <button onclick="execCommand('justifyCenter')" title="Align Center">
+            <i class="fas fa-align-center icon"></i>
+        </button>
+        <button onclick="execCommand('justifyRight')" title="Align Right">
+            <i class="fas fa-align-right icon"></i>
+        </button>
+        <button onclick="execCommand('justifyFull')" title="Justify">
+            <i class="fas fa-align-justify icon"></i>
+        </button>
+        <button onclick="toggleFontSizeMenu()" title="Font Size">
+            <i class="fas fa-text-height icon"></i>
+        </button>
+        <div class="font-size-dropdown" id="fontSizeMenu">
+            <a href="javascript:void(0);" onclick="changeFontSize(10)">10px</a>
+            <a href="javascript:void(0);" onclick="changeFontSize(14)">14px</a>
+            <a href="javascript:void(0);" onclick="changeFontSize(18)">18px</a>
+            <a href="javascript:void(0);" onclick="changeFontSize(22)">22px</a>
+            <a href="javascript:void(0);" onclick="changeFontSize(26)">26px</a>
+            <a href="javascript:void(0);" onclick="changeFontSize(30)">30px</a>
+        </div>
+        <select id="fontFamily" onchange="changeFontFamily(event)" title="Font Family">
+            <option value="Roboto" selected>Roboto</option>
+            <option value="Lato">Lato</option>
+            <option value="Kalpurush">Kalpurush</option>
+            <option value="SolaimanLipi">SolaimanLipi</option>
+            <option value="K2D">K2D</option>
+            <option value="Arial">Arial</option>
+        </select>
+        <button onclick="toggleColorPicker('text')" title="Font Color">
+            <i class="fas fa-font icon"></i>
+        </button>
+        <div class="color-picker" id="textColorPicker">
+            <input type="color" onchange="changeTextColor(event)" />
+        </div>
+        <button onclick="toggleColorPicker('background')" title="Background Color">
+            <i class="fas fa-palette icon"></i>
+        </button>
+        <div class="color-picker" id="bgColorPicker">
+            <input type="color" onchange="changeBackgroundColor(event)" />
+        </div>
+        <button onclick="toggleTableInputs()" title="Table">
+            <i class="fas fa-table icon"></i>
+        </button>
+        <div class="table-inputs" id="tableInputs" style="display: none;">
+            <input type="number" id="rows" placeholder="Rows" min="1" />
+            <input type="number" id="cols" placeholder="Cols" min="1" />
+            <button onclick="createTable()">Create Table</button>
+        </div>
+    </div>
+    
+    <div class="editor" contenteditable="true">
+        <!-- Editable area -->
+    </div>
+
+    <script>
+        function execCommand(command) {
+            document.execCommand(command, false, null);
+        }
+
+        function changeFontSize(size) {
+            document.execCommand('fontSize', false, size);
+        }
+
+        function changeFontFamily(event) {
+            const fontFamily = event.target.value;
+            document.execCommand('fontName', false, fontFamily);
+        }
+
+        function toggleFontSizeMenu() {
+            const menu = document.getElementById('fontSizeMenu');
+            menu.classList.toggle('show');
+        }
+
+        function hideFontSizeMenu() {
+            const menu = document.getElementById('fontSizeMenu');
+            menu.classList.remove('show');
+        }
+
+        function toggleColorPicker(type) {
+            if (type === 'text') {
+                document.getElementById('textColorPicker').style.display = 'block';
+                document.getElementById('bgColorPicker').style.display = 'none';
+            } else {
+                document.getElementById('bgColorPicker').style.display = 'block';
+                document.getElementById('textColorPicker').style.display = 'none';
+            }
+        }
+
+        function changeTextColor(event) {
+            const color = event.target.value;
+            document.execCommand('foreColor', false, color);
+        }
+
+        function changeBackgroundColor(event) {
+            const color = event.target.value;
+            document.execCommand('backColor', false, color);
+        }
+
+        function toggleTableInputs() {
+            const inputs = document.getElementById('tableInputs');
+            inputs.style.display = inputs.style.display === 'none' ? 'flex' : 'none';
+        }
+
+        function createTable() {
+            const rows = document.getElementById('rows').value;
+            const cols = document.getElementById('cols').value;
+            if (rows && cols) {
+                const table = document.createElement('table');
+                for (let i = 0; i < rows; i++) {
+                    const tr = table.insertRow();
+                    for (let j = 0; j < cols; j++) {
+                        const td = tr.insertCell();
+                        td.innerHTML = `Row ${i + 1}, Col ${j + 1}`;
+                    }
+                }
+                document.querySelector('.editor').appendChild(table);
+            }
+            toggleTableInputs();
+        }
+    </script>
+</body>
+</html>

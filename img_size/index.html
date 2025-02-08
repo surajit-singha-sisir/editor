@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drag and Drop Image</title>
+    <style>
+        #editable-div {
+            width: 500px;
+            height: 300px;
+            border: 1px solid #ccc;
+            position: relative;
+            background-color: #f9f9f9;
+            overflow: hidden;
+        }
+
+        .image {
+            position: absolute;
+            cursor: move;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+    <div id="editable-div" contenteditable="true">
+        <p>Drag and drop an image here.</p>
+    </div>
+
+    <script>
+        const editableDiv = document.getElementById("editable-div");
+
+        // Handle drag over event to allow dropping
+        editableDiv.addEventListener("dragover", (e) => {
+            e.preventDefault(); // Allow the drop action
+        });
+
+        // Handle drop event to display the image
+        editableDiv.addEventListener("drop", (e) => {
+            e.preventDefault();
+
+            const rect = editableDiv.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            // Ensure the dropped content is an image
+            const file = e.dataTransfer.files[0];
+            if (file && file.type.startsWith("image/")) {
+                const reader = new FileReader();
+
+                reader.onload = function(event) {
+                    // Check if the image already exists to prevent duplication
+                    const existingImg = document.querySelector(`img[src="${event.target.result}"]`);
+                    if (!existingImg) {
+                        const img = document.createElement("img");
+                        img.src = event.target.result; // Set the dropped image URL
+                        img.classList.add("image");
+                        img.draggable = true;
+
+                        // Wait for the image to load before calculating the aspect ratio
+                        img.onload = function() {
+                            const aspectRatio = img.naturalWidth / img.naturalHeight;
+                            const width = 100; // Set initial width (you can adjust this as needed)
+                            const height = width / aspectRatio; // Calculate height to maintain the aspect ratio
+
+                            img.style.position = "absolute";
+                            img.style.left = `${x - width / 2}px`; // Adjust for centering the image
+                            img.style.top = `${y - height / 2}px`; // Adjust for centering the image
+                            img.style.width = `${width}px`;
+                            img.style.height = `${height}px`;
+
+                            // Add the image to the div
+                            editableDiv.appendChild(img);
+
+                            // Enable resizing the image with scroll
+                            enableImageResizeWithScroll(img);
+                        };
+                    }
+                };
+
+                reader.readAsDataURL(file); // Read the file as data URL
+            }
+        });
+
+        // Allow images to be dragged and moved within the div
+        editableDiv.addEventListener("dragstart", (e) => {
+            if (e.target.classList.contains("image")) {
+                // Store the dragged image
+                e.dataTransfer.setData("text/plain", e.target.src);
+            }
+        });
+
+        // Handle the actual movement of the image when it's dragged
+        editableDiv.addEventListener("dragend", (e) => {
+            if (e.target.classList.contains("image")) {
+                const rect = editableDiv.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+
+                const aspectRatio = e.target.naturalWidth / e.target.naturalHeight;
+                const width = e.target.offsetWidth;
+                const height = width / aspectRatio;
+
+                // Move the image to the new position
+                e.target.style.left = `${x - width / 2}px`;
+                e.target.style.top = `${y - height / 2}px`;
+            }
+        });
+
+        // Enable image resize by scroll
+        function enableImageResizeWithScroll(img) {
+            img.addEventListener("wheel", (e) => {
+                e.preventDefault(); // Prevent the default scroll behavior
+
+                const scaleFactor = 1.1;
+                let newWidth = img.offsetWidth;
+                let newHeight = img.offsetHeight;
+
+                if (e.deltaY < 0) {
+                    // Scroll up to increase size
+                    newWidth *= scaleFactor;
+                    newHeight *= scaleFactor;
+                } else {
+                    // Scroll down to decrease size
+                    newWidth /= scaleFactor;
+                    newHeight /= scaleFactor;
+                }
+
+                // Apply new size while maintaining aspect ratio
+                img.style.width = `${newWidth}px`;
+                img.style.height = `${newHeight}px`;
+            });
+        }
+    </script>
+</body>
+</html>

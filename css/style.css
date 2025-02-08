@@ -1,0 +1,506 @@
+/* Importing Google Fonts and Boxicons */
+@import "https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap";
+
+@import "https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css";
+
+/* Global style settings */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif; /* Applying 'Poppins' font globally */
+}
+
+/* Sidebar container styling */
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 78px; /* Default sidebar width */
+  background: #11101D; /* Dark background color for sidebar */
+  padding: 6px 14px;
+  z-index: 99; /* Ensures sidebar is on top */
+  transition: all 0.5s ease; /* Smooth transition for width change */
+}
+
+/* Logo details within the sidebar */
+.sidebar .logo-details {
+  height: 60px;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+.sidebar .logo-details .icon {
+  opacity: 0; /* Hidden by default, shows when sidebar is expanded */
+  transition: all 0.5s ease;
+}
+.sidebar .logo-details .logo_name {
+  color: #fff;
+  font-size: 20px;
+  font-weight: 600;
+  opacity: 0; /* Hidden by default, shows when sidebar is expanded */
+  transition: all 0.5s ease;
+}
+.sidebar .logo-details #btn {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  font-size: 23px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.5s ease;
+}
+
+/* General icon styling */
+.sidebar i {
+  color: #fff;
+  height: 60px;
+  min-width: 50px;
+  font-size: 28px;
+  text-align: center;
+  line-height: 60px; /* Centers icon vertically */
+}
+
+/* Sidebar navigation list styling */
+.sidebar .nav-list {
+  height: calc(100% - 140px); /* Leaves space for logo and profile */
+}
+
+/* Scrollbar styles for sidebar */
+.sidebar .scroll {
+  overflow-y: auto; /* Enables vertical scrolling */
+  scrollbar-width: thin;
+}
+.sidebar .scroll::-webkit-scrollbar {
+  width: 8px;
+  background: #262440; /* Scrollbar background color */
+  border-radius: 5px;
+}
+.sidebar .scroll::-webkit-scrollbar-thumb {
+  background: #262440; /* Scrollbar thumb color */
+  border-radius: 5px;
+}
+.sidebar .scroll::-webkit-scrollbar-track {
+  background: #171526; /* Scrollbar track color */
+  border-radius: 5px;
+}
+
+/* Sidebar navigation item styling */
+.sidebar li {
+  position: relative;
+  margin: 8px 8px 8px 0;
+  list-style: none;
+}
+.sidebar li .tooltip {
+  position: absolute;
+  top: -20px;
+  left: calc(100% + 15px);
+  z-index: 3;
+  background: #fff;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 15px;
+  font-weight: 400;
+  opacity: 0; /* Hidden by default */
+  pointer-events: none;
+  transition: 0s;
+}
+.sidebar li:hover .tooltip {
+  opacity: 1; /* Shows tooltip on hover */
+  pointer-events: auto;
+  transition: all 0.4s ease;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* Link styling within sidebar items */
+.sidebar li a {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  border-radius: 12px;
+  align-items: center;
+  text-decoration: none;
+  transition: all 0.4s ease;
+  background: #11101D; /* Default background for links */
+}
+.sidebar li a:hover {
+  background: #1d1b31; /* Lighter background on hover */
+}
+
+/* Link text and icon hover effects */
+.sidebar li a:hover .links_name {
+  transition: all 0.5s ease;
+}
+.sidebar li a:hover i {
+  transition: all 0.5s ease;
+}
+
+/* Link text styling */
+.sidebar li a .links_name {
+  color: #fff;
+  font-size: 15px;
+  font-weight: 400;
+  white-space: nowrap;
+  opacity: 0; /* Hidden by default */
+  pointer-events: none;
+  transition: 0.4s;
+}
+
+/* Icon styling within sidebar items */
+.sidebar li i {
+  height: 50px;
+  line-height: 50px; /* Centers icon vertically */
+  font-size: 18px;
+  border-radius: 12px;
+}
+
+/* Profile details styling */
+.sidebar li .profile-details {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+.sidebar li img {
+  height: 45px;
+  width: 45px;
+  object-fit: cover;
+  border-radius: 6px;
+  margin-right: 10px;
+}
+
+/* Sidebar input (search) styling */
+.sidebar input {
+  font-size: 15px;
+  color: #FFF;
+  font-weight: 400;
+  outline: none;
+  height: 50px;
+  width: 50px; /* Default width for search input */
+  border: none;
+  border-radius: 12px;
+  transition: all 0.5s ease;
+  background: #1d1b31; /* Input background color */
+}
+
+/* Search button styling */
+.sidebar .bx-search {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  font-size: 22px;
+  background: #1d1b31;
+  color: #FFF;
+}
+.sidebar .bx-search:hover {
+  background: #FFF; /* Hover background color */
+  color: #11101d; /* Hover text color */
+}
+
+/* Profile section styling */
+.sidebar li.profile {
+  position: fixed;
+  height: 60px;
+  width: 78px; /* Default width for profile section */
+  left: 0;
+  bottom: -8px;
+  padding: 10px 14px;
+  background: #1d1b31;
+  transition: all 0.5s ease;
+  overflow: hidden;
+}
+.sidebar li.profile .name {
+  font-size: 15px;
+  font-weight: 400;
+  color: #fff;
+  white-space: nowrap;
+}
+.sidebar li.profile .job {
+  font-size: 12px;
+  font-weight: 400;
+  color: #fff;
+  white-space: nowrap;
+}
+
+/* Logout button styling */
+.sidebar .profile #log_out {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  background: #1d1b31;
+  width: 100%;
+  height: 60px;
+  line-height: 60px; /* Centers logout icon vertically */
+  border-radius: 0px;
+  transition: all 0.5s ease;
+}
+
+/* Expanded sidebar styles */
+.sidebar.open {
+  width: 250px; /* Expanded sidebar width */
+}
+.sidebar.open .logo-details .icon {
+  opacity: 1; /* Shows icon in expanded state */
+}
+.sidebar.open .logo-details .logo_name {
+  opacity: 1; /* Shows logo name in expanded state */
+}
+.sidebar.open .logo-details #btn {
+  text-align: right;
+}
+.sidebar.open li .tooltip {
+  display: none; /* Hides tooltips when expanded */
+}
+.sidebar.open li a .links_name {
+  opacity: 1; /* Shows link names when expanded */
+  pointer-events: auto;
+}
+.sidebar.open input {
+  padding: 0 20px 0 50px;
+  width: 100%; /* Expands input width */
+}
+.sidebar.open .bx-search:hover {
+  background: #1d1b31;
+  color: #FFF;
+}
+.sidebar.open li.profile {
+  width: 250px; /* Expands profile section */
+}
+.sidebar.open .profile #log_out {
+  width: 50px; /* Shrinks logout button */
+  background: none;
+}
+.sidebar.open ~ .home-section {
+  left: 250px; /* Adjusts home section to sidebar width */
+  width: calc(100% - 250px);
+}
+
+/* Main content (home section) styling */
+.home-section {
+  position: relative;
+  background: #E4E9F7; /* Light background for main content */
+  min-height: 100vh;
+  top: 0;
+  left: 78px;
+  width: calc(100% - 78px); /* Adjusts width to fit next to sidebar */
+  transition: all 0.5s ease;
+  z-index: 2;
+}
+.home-section .text {
+  display: inline-block;
+  color: #11101d;
+  font-size: 25px;
+  font-weight: 500;
+  margin: 18px;
+}
+
+/* Floating YouTube Button Styling */
+.youtube-button {
+  position: fixed;
+  bottom: 20px; /* Distance from the bottom */
+  right: 20px; /* Distance from the right */
+  background-color: #FF0000; /* YouTube red color */
+  color: white;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  z-index: 2;
+}
+
+/* Icon Styling */
+.youtube-button i {
+  font-size: 24px;
+}
+
+/* Hover Effect */
+.youtube-button:hover {
+  background-color: #e60000; /* Darker shade of red */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  transform: translateY(-2px); /* Slight upward movement */
+}
+
+
+/* editor css  */
+
+
+.toolbar {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 10px 15px;
+  border: 1px solid #ddd;
+  position: relative;
+}
+
+.editor {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 15px;
+  min-height: 250px;
+  border: 1px solid #ddd;
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+  font-size: 16px;
+  line-height: 1.5;
+  transition: border-color 0.3s ease;
+}
+
+.editor:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+button {
+  padding: 8px 12px;
+  cursor: pointer;
+  background-color: #f0f0f0;
+  border: none;
+  border-radius: 5px;
+  font-size: 18px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+button:hover {
+  background-color: #e0e0e0;
+  transform: scale(1.05);
+}
+
+button .active {
+  background-color: #d1d1d1;
+}
+
+select, .font-size-dropdown {
+  padding: 8px 12px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  transition: background-color 0.3s ease;
+  width: 120px;
+}
+
+select:hover, .font-size-dropdown:hover {
+  background-color: #f0f0f0;
+}
+
+.icon {
+  font-size: 18px;
+  color: #555;
+}
+
+.toolbar button span {
+  margin-right: 5px;
+}
+
+.toolbar button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.font-size-dropdown {
+  display: none;
+  position: absolute;
+  top: 35px;
+  left: 0;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid #ddd;
+  padding: 8px 0;
+  width: 120px;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.font-size-dropdown a {
+  display: block;
+  padding: 8px 15px;
+  font-size: 16px;
+  color: #333;
+  text-decoration: none;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.font-size-dropdown a:hover {
+  background-color: #f0f0f0;
+  color: #007bff;
+}
+
+.font-size-dropdown.show {
+  display: block;
+  opacity: 1;
+  visibility: visible;
+}
+
+.table-inputs {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: 10px;
+}
+
+.table-inputs input {
+  padding: 5px;
+  font-size: 16px;
+  width: 50px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.table-inputs button {
+  padding: 5px 10px;
+  font-size: 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.table-inputs button:hover {
+  background-color: #0056b3;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 10px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+.color-picker {
+  display: none;
+  position: absolute;
+  top: 45px;
+  left: 0;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+.color-picker input {
+  width: 100px;
+  border: none;
+  padding: 5px;
+}

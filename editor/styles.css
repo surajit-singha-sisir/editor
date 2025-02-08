@@ -1,0 +1,65 @@
+.editor-container {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    background: #fff;
+    width: 100%;
+}
+
+.toolbar {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+    background: #f1f1f1;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+button {
+    padding: 6px 12px;
+    background: #e0e0e0;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.2s;
+}
+
+button:hover {
+    background-color: #ddd;
+}
+
+.editor {
+    min-height: 300px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-family: Arial, sans-serif;
+}
+
+.font-size-dropdown, .font-family-dropdown {
+    display: none;
+    position: absolute;
+    background: #fff;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    width: 120px;
+    padding: 5px;
+    margin-top: 5px;
+    border-radius: 5px;
+}
+
+.font-size-dropdown.show, .font-family-dropdown.show {
+    display: block;
+}
+
+.font-size-dropdown a, .font-family-dropdown a {
+    display: block;
+    padding: 5px;
+    text-decoration: none;
+    color: #333;
+}
+
+.font-size-dropdown a:hover, .font-family-dropdown a:hover {
+    background-color: #f0f0f0;
+}
