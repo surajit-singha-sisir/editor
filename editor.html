@@ -208,24 +208,24 @@
             <div class="files-load toolbar">
                 <!-- LINK ANCHOR TAG -->
                 <button type="button" class="vwbtn vwbtn-default anchor-tag" id="anchor-tag" tabindex="-1"
-                    aria-label="Anchor Tag (CTRL+ALT+L)" data-original-title="Anchor Tag (CTRL+ALT+L)"><i
-                        class="m-link"></i></button>
+                    aria-label="Anchor Tag (CTRL+ALT+L)" data-original-title="Anchor Tag (CTRL+ALT+L)"
+                    onclick="openModal('modal1')"><i class="m-link"></i></button>
                 <!-- IMAGE -->
                 <button type="button" class="vwbtn vwbtn-default image-file" id="image-file" tabindex="-1"
-                    aria-label="Add Image (CTRL+ALT+I)" data-original-title="Add Image (CTRL+ALT+I)"><i
-                        class="m-image"></i></button>
+                    aria-label="Add Image (CTRL+ALT+I)" data-original-title="Add Image (CTRL+ALT+I)"
+                    onclick="openModal('modal2')"><i class="m-image"></i></button>
                 <!-- YOUTUBE VIDEO -->
                 <button type="button" class="vwbtn vwbtn-default youtube-video" id="youtube-video" tabindex="-1"
-                    aria-label="Add Youtube Video (CTRL+ALT+V)" data-original-title="Add Youtube Video (CTRL+ALT+V)"><i
-                        class="m-youtube3"></i></button>
+                    aria-label="Add Youtube Video (CTRL+ALT+V)" data-original-title="Add Youtube Video (CTRL+ALT+V)"
+                    onclick="openModal('modal3')"><i class="m-youtube3"></i></button>
             </div>
 
             <!-- ACCESIBILITIES -->
             <div class="accessibilities toolbar">
                 <!-- FULL SCREEN -->
                 <button type="button" class="vwbtn vwbtn-default full-screen" id="full-screen" tabindex="-1"
-                    aria-label="Full Screen (CTRL+M)" data-original-title="Full Screen (CTRL+M)"><i
-                        class="m-fullscreen"></i></button>
+                    aria-label="Full Screen (CTRL+M)" data-original-title="Full Screen (CTRL+M)"
+                    onclick="fullscreen()"><i class="m-fullscreen"></i></button>
                 <!-- CODE VIEW -->
                 <button type="button" class="vwbtn vwbtn-default code-view" id="code-view" tabindex="-1"
                     aria-label="Code View (CTRL+,)" data-original-title="Code View (CTRL+,)"><i
@@ -237,24 +237,102 @@
             </div>
 
         </div>
-        <section class="editor-body editor-section" id="editor-body" contenteditable="true">
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repudiandae omnis esse, ad voluptate modi quidem
-            officiis amet! Maiores modi nostrum veniam ullam dolor repudiandae exercitationem quae quod. Eos, atque
-            laudantium.
+        <section class="relative">
+            <div class="editor-body editor-section h-vh-50" id="editor-body" contenteditable="true">
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repudiandae omnis esse, ad voluptate modi
+                quidem
+                officiis amet! Maiores modi nostrum veniam ullam dolor repudiandae exercitationem quae quod. Eos, atque
+                laudantium.
+            </div>
+            <div class="resizer-editor"></div>
         </section>
     </aside>
-    <style>
-        ul li {
-            list-style: lower-alpha;
-        }
-    </style>
-    <ul>
-        <li>A</li>
-        <li>B</li>
-        <li>C</li>
-        <li>D</li>
 
-    </ul>
+    <section>
+        <div class="modal-overlay" id="modal-overlay"></div>
+        <!-- ANCHOR TAG LINK -->
+        <div class="modal" id="modal1">
+            <div class="f f-just-between pad-b--10">
+                <h2>Insert Link</h2>
+                <span class="close-btn" onclick="closeModal('modal1')"><i class="m-cross1"></i></span>
+            </div>
+            <div class="border-bottom"></div>
+            <!-- MAIN CONTENT -->
+            <div class="modal-main-contents">
+                <div class="text-input" id="text-input">
+                    <label for="text">Text to Display</label>
+                    <input type="text" class="inputbox">
+                </div>
+                <div class="text-input" id="text-input">
+                    <label for="text">URL Link</label>
+                    <input type="text" class="inputbox">
+                </div>
+                <button class="btn btn-alert w--60">Add</button>
+            </div>
+
+            <section>
+
+            </section>
+        </div>
+
+        <!-- ADD IMAGE -->
+        <div class="modal" id="modal2">
+            <div class="f f-just-between pad-b--10">
+                <h2>Insert Image</h2>
+                <span class="close-btn" onclick="closeModal('modal2')"><i class="m-cross1"></i></span>
+            </div>
+            <div class="border-bottom"></div>
+            <!-- MAIN CONTENT -->
+            <div class="preview-img preview" id="preview-img"></div>
+            <div class="modal-main-contents">
+                <div class="f f-col w-100 f-just-start gap-10">
+                    <label for="text">Upload Image File <span class="Red">(only jpg or png)</span></label>
+                    <div class="input-file">
+                        <span>Select an Image File...</span>
+                        <input type="file" class="inputbox" accept=".jpg, .png, .jpeg" multiple>
+                    </div>
+                    <div class="text-left">OR,</div>
+                </div>
+                <div class="text-input" id="text-input">
+                    <label for="text">URL Link</label>
+                    <input type="text" class="inputbox">
+                </div>
+                <button class="btn btn-alert w--60">Add</button>
+            </div>
+
+        </div>
+
+
+        <!-- YOUTUBE -->
+        <div class="modal" id="modal3">
+            <div class="f f-just-between pad-b--10">
+                <h2>Insert Youtube Video</h2>
+                <span class="close-btn" onclick="closeModal('modal3')"><i class="m-cross1"></i></span>
+            </div>
+            <div class="border-bottom"></div>
+            <!-- MAIN CONTENT -->
+            <!-- PREVIEW -->
+            <div class="preview-youtube preview" id="preview-youtube">
+                <iframe class="hide" width="360" height="215"
+                    src="https://www.youtube.com/embed/8uKgqqK2v4s?si=2UDoU80vrjH2ByG8" frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+            <div class="modal-main-contents">
+                <div class="f f-col w-100 f-just-start gap-10">
+                    <div class="text-input" id="text-input">
+                        <label for="text">URL Link</label>
+                        <input type="text" class="inputbox">
+                    </div>
+                    <span class="Gray"><u>Note:</u> Youtube Link Like <b
+                            class="Red">https://youtu.be/8uKgqqK2v4s?si=hXwVk9BHYZFNzgWS</b><br> You can find this
+                        link within video share button</span>
+
+                </div>
+                <button class="btn btn-alert w--60">Add</button>
+            </div>
+        </div>
+    </section>
 
 </body>
 

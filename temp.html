@@ -1,12 +1,143 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+    <title>Multiple Modal Popups</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #1f4037, #99f2c8);
+        }
+
+        .modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.8);
+            width: 350px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .modal.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .modal h2 {
+            text-align: center;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+
+        .modal input,
+        .modal button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            outline: none;
+        }
+
+        .modal button {
+            background: #27ae60;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .modal button:hover {
+            background: #219150;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 20px;
+            cursor: pointer;
+            color: white;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 10px;
+        }
+    </style>
 </head>
+
 <body>
-    <h1>Welcome to the Dashboard</h1>
-    <p>This is a basic HTML template.</p>
+    <div class="buttons">
+        <button onclick="openModal('modal1')">Modal 1</button>
+        <button onclick="openModal('modal2')">Modal 2</button>
+        <button onclick="openModal('modal3')">Modal 3</button>
+        <button onclick="openModal('modal4')">Modal 4</button>
+        <button onclick="openModal('modal5')">Modal 5</button>
+    </div>
+
+    <div class="modal" id="modal1">
+        <span class="close-btn" onclick="closeModal('modal1')">&times;</span>
+        <h2>Modal 1</h2>
+        <input type="text" placeholder="Enter something">
+        <button>Submit</button>
+    </div>
+
+    <div class="modal" id="modal2">
+        <span class="close-btn" onclick="closeModal('modal2')">&times;</span>
+        <h2>Modal 2</h2>
+        <p>This is a confirmation modal.</p>
+        <button>Confirm</button>
+        <button onclick="closeModal('modal2')">Cancel</button>
+    </div>
+
+    <div class="modal" id="modal3">
+        <span class="close-btn" onclick="closeModal('modal3')">&times;</span>
+        <h2>Modal 3</h2>
+        <p>Action was successful.</p>
+    </div>
+
+    <div class="modal" id="modal4">
+        <span class="close-btn" onclick="closeModal('modal4')">&times;</span>
+        <h2>Modal 4</h2>
+        <img src="https://via.placeholder.com/300" alt="Preview" style="width: 100%; border-radius: 5px;">
+    </div>
+
+    <div class="modal" id="modal5">
+        <span class="close-btn" onclick="closeModal('modal5')">&times;</span>
+        <h2>Modal 5</h2>
+        <input type="email" placeholder="Enter your email">
+        <button>Subscribe</button>
+    </div>
+
+    <script>
+        function openModal(id) {
+            document.getElementById(id).classList.add("active");
+        }
+        function closeModal(id) {
+            document.getElementById(id).classList.remove("active");
+        }
+    </script>
 </body>
+
 </html>
