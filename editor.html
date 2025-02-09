@@ -37,10 +37,10 @@
                 "color": ["color"],
                 "para": ["ul", "ol", "paragraph"],
                 "height": ["height"],
-                "mode": "airmode",
-                "theme": "secondary",
+                "mode": ["airmode"],
+                "theme": ["secondary"],
                 "iconSize": ["fontSize-10px", "fontPadding-8px"],
-
+                "height": ["minimum", "standard", "maximum", "full"]
             }
         </script>
 
@@ -188,10 +188,9 @@
             <div class="text-table toolbar">
                 <!-- TABLE -->
                 <section class="popup-view">
-                    <button type="button" class="vwbtn vwbtn-default disc-bullet" id="disc-bullet" tabindex="-1"
-                        aria-label="Disc Bullet (CTRL+SHIFT+C)" data-original-title="Disc Bullet (CTRL+SHIFT+C)"><i
-                            class="m-table"></i></button>
-                    <div class="table-inputs">
+                    <button type="button" class="vwbtn vwbtn-default table-maker" id="table-maker" tabindex="-1"
+                        aria-label="Create Table" data-original-title="Create Table"><i class="m-table2"></i></button>
+                    <div class="table-inputs" id="table-inputs">
                         <input type="number" placeholder="Row" min="0" step="1">
                         <input type="number" placeholder="Col" min="0" step="1">
                         <button type="button" class="btn btn-primary">Add</button>
@@ -201,16 +200,40 @@
 
                 <button type="button" class="vwbtn vwbtn-default disc-bullet z-1" id="disc-bullet" tabindex="-1"
                     aria-label="Disc Bullet (CTRL+SHIFT+C)" data-original-title="Disc Bullet (CTRL+SHIFT+C)"><i
-                        class="m-table"></i></button>
+                        class="m-copy3"></i></button>
             </div>
 
 
             <!-- FILES LOAD -->
             <div class="files-load toolbar">
                 <!-- LINK ANCHOR TAG -->
-                <button type="button" class="vwbtn vwbtn-default disc-bullet z-1" id="disc-bullet" tabindex="-1"
-                    aria-label="Disc Bullet (CTRL+SHIFT+C)" data-original-title="Disc Bullet (CTRL+SHIFT+C)"><i
-                        class="m-table"></i></button>
+                <button type="button" class="vwbtn vwbtn-default anchor-tag" id="anchor-tag" tabindex="-1"
+                    aria-label="Anchor Tag (CTRL+ALT+L)" data-original-title="Anchor Tag (CTRL+ALT+L)"><i
+                        class="m-link"></i></button>
+                <!-- IMAGE -->
+                <button type="button" class="vwbtn vwbtn-default image-file" id="image-file" tabindex="-1"
+                    aria-label="Add Image (CTRL+ALT+I)" data-original-title="Add Image (CTRL+ALT+I)"><i
+                        class="m-image"></i></button>
+                <!-- YOUTUBE VIDEO -->
+                <button type="button" class="vwbtn vwbtn-default youtube-video" id="youtube-video" tabindex="-1"
+                    aria-label="Add Youtube Video (CTRL+ALT+V)" data-original-title="Add Youtube Video (CTRL+ALT+V)"><i
+                        class="m-youtube3"></i></button>
+            </div>
+
+            <!-- ACCESIBILITIES -->
+            <div class="accessibilities toolbar">
+                <!-- FULL SCREEN -->
+                <button type="button" class="vwbtn vwbtn-default full-screen" id="full-screen" tabindex="-1"
+                    aria-label="Full Screen (CTRL+M)" data-original-title="Full Screen (CTRL+M)"><i
+                        class="m-fullscreen"></i></button>
+                <!-- CODE VIEW -->
+                <button type="button" class="vwbtn vwbtn-default code-view" id="code-view" tabindex="-1"
+                    aria-label="Code View (CTRL+,)" data-original-title="Code View (CTRL+,)"><i
+                        class="m-code1"></i></button>
+                <!-- GET HELP -->
+                <button type="button" class="vwbtn vwbtn-default get-help" id="get-help" tabindex="-1"
+                    aria-label="Get Help (CTRL+?)" data-original-title="Get Help (CTRL+?)"><i
+                        class="m-question-mark"></i></button>
             </div>
 
         </div>
